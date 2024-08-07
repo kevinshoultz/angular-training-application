@@ -13,9 +13,6 @@ export class UserItemComponent {
   @Input() user?: IUser;
   @Output() select = new EventEmitter<string>();
 
-  userName = computed(() => {
-    return this.user?.name;
-  });
   imagePath = computed(() => {
     return `assets/users/${this.user?.avatar}`;
   });
