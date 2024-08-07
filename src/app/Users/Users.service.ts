@@ -1,8 +1,10 @@
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { IUser } from "./Users.model";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {
+    private httpClient = inject(HttpClient);
     private users: IUser[] = [
         {
             id: 'u1',
@@ -32,6 +34,11 @@ export class UsersService {
     ];
 
     getUsers(): IUser[] {
+        // TODO: Revisit the tutorial to move the subscription to the component:
+        // https://www.udemy.com/course/the-complete-guide-to-angular-2/learn/lecture/44116338#overview
+        // TODO: Implement Error handling:
+        // https://www.udemy.com/course/the-complete-guide-to-angular-2/learn/lecture/44116322#overview
+        this.httpClient.get<IUser[]>('https://api.example.com/users').subscribe(users => { this.users = users; });
         return this.users;
     };
 

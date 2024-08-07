@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './Common/Header/Header.component';
 import { UserItemComponent } from "./Users/UserItem/UserItem.component";
@@ -13,13 +13,17 @@ import { UsersService } from './Users/Users.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   users: IUser[] = [];
   selectedUser: IUser | undefined;
   title = 'angular-training-application';
   
   constructor(private usersService: UsersService) {
     this.users = this.usersService.getUsers()
+  }
+
+  ngOnInit() {
+    this.usersService.getUsers();
   }
 
   onSelectUser(id: string) {

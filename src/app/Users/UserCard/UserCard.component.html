@@ -16,6 +16,6 @@
     </div>
 </div>
 @if(isTaskModalVisible) {
-    <app-task-modal (close)="onCancelAddTask()"/>
+    <app-task-modal (close)="onCancelAddTask()" [userId]="user()?.id"/>
 }
 

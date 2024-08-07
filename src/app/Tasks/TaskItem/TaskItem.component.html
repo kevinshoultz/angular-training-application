@@ -3,6 +3,7 @@
         Task Name: {{ task?.title }}
     </h1>
     <h2>Description</h2>
-    <p>{{ task?.summary }}</p>
+    <p>Summary: {{ task?.summary }}</p>
+    <p>User Id: {{ task?.userId }}</p>
     <button (click)="onSelectTask()">Select Task</button>
 </app-item>

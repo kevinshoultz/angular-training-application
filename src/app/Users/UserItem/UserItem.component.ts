@@ -19,7 +19,6 @@ export class UserItemComponent {
 
   onSelectUser() {
     const id = this.user?.id;
-    console.log(`Selected user with id ${id}`);
     this.select.emit(id);
   }
 }

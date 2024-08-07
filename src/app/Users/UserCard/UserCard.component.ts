@@ -1,4 +1,4 @@
-import { Component, computed, Input, input, output } from '@angular/core';
+import { Component, computed, Input, input, OnInit, output } from '@angular/core';
 import { IUser } from '../Users.model';
 import { ITask } from '../../Tasks/Tasks.model';
 import { TasksService } from '../../Tasks/Tasks.service';
@@ -13,7 +13,7 @@ import { TaskModalComponent } from "../../Tasks/TaskModal/TaskModal.component";
   styleUrl: './UserCard.component.scss'
 })
 
-export class UserCardComponent {
+export class UserCardComponent implements OnInit {
   tasks: ITask[] = [];
   user = input.required<IUser | undefined>();
   isTaskModalVisible = false;
@@ -29,6 +29,10 @@ export class UserCardComponent {
   imagePath = computed(() => {
     return `assets/users/${this.user()?.avatar}`;
   });
+
+  ngOnInit() {
+    this.tasksService.getTasks();
+  }
 
   onAddTask() {
     this.isTaskModalVisible = true;
