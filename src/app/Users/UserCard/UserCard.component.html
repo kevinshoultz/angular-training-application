@@ -1,0 +1,21 @@
+<div>
+    <h1>Name: {{ user()?.name }}</h1>
+    <p>User ID: {{ user()?.id }}</p>
+    <p>Avatar: {{ user()?.avatar }}</p>
+    <p>Image Path: {{ imagePath() }}</p>
+    <div>
+        <h2>Tasks</h2>
+        <button (click)="onAddTask()">Add Task</button>
+        <ul>
+            @for (task of tasks; track task.id) {
+                <li>
+                    <app-task-item [task]="task" />
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+@if(isTaskModalVisible) {
+    <app-task-modal (close)="onCancelAddTask()"/>
+}
+
