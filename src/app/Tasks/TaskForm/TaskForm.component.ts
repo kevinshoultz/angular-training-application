@@ -3,11 +3,12 @@ import { FormsModule } from '@angular/forms';
 import { ITask } from '../Tasks.model';
 import { emptyTask } from '../Tasks.fixtures';
 import { FormComponent } from "../../Common/Form/Form.component";
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-task-form',
   standalone: true,
-  imports: [FormsModule, FormComponent], // This prevents the form submit from submitting the form.
+  imports: [FormsModule, FormComponent, DatePipe], // This prevents the form submit from submitting the form.
   templateUrl: './TaskForm.component.html',
   styleUrl: './TaskForm.component.scss'
 })
