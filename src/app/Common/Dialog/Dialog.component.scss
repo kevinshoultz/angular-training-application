@@ -5,8 +5,10 @@ dialog {
     max-height: 90%;
     // background: #AAAAAA;
     border-radius: 6px;
-    border: none;
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+    border: solid 1px #0000CC;
+    border-bottom-width: 3px;
+    border-right-width: 3px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
     overflow: hidden;
     padding: 1rem;
     top: 2rem;

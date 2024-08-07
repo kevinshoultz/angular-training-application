@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './Common/Header/Header.component';
 import { UserItemComponent } from "./Users/UserItem/UserItem.component";
 import { UserCardComponent } from "./Users/UserCard/UserCard.component";
 import { IUser } from './Users/Users.model';
