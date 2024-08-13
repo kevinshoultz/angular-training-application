@@ -24,10 +24,6 @@ export class UserCardComponent implements OnInit {
 
   avatar = computed(() => {
     return this.user()?.avatar;
-  })
-
-  imagePath = computed(() => {
-    return `assets/users/${this.user()?.avatar}`;
   });
 
   ngOnInit() {

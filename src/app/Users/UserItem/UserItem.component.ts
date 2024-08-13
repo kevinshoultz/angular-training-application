@@ -13,10 +13,6 @@ export class UserItemComponent {
   @Input() user?: IUser;
   @Output() select = new EventEmitter<string>();
 
-  imagePath = computed(() => {
-    return `assets/users/${this.user?.avatar}`;
-  });
-
   onSelectUser() {
     const id = this.user?.id;
     this.select.emit(id);

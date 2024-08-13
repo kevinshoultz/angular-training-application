@@ -2,7 +2,7 @@
     <h1>Name: {{ user()?.name }}</h1>
     <p>User ID: {{ user()?.id }}</p>
     <p>Avatar: {{ user()?.avatar }}</p>
-    <p>Image Path: {{ imagePath() }}</p>
+    <p>Image Path: {{ user()?.getAvatarPath() }}</p>
     <div>
         <h2>Tasks</h2>
         <button (click)="onAddTask()">Add Task</button>
