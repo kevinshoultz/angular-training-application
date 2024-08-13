@@ -1,4 +1,6 @@
-export const emptyTask = {
+import { ITask } from "./Tasks.model";
+
+export const emptyTask: ITask = {
     id: '',
     userId: '',
     title: '',

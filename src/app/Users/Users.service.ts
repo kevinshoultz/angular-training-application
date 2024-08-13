@@ -24,7 +24,7 @@ export class UsersService {
         return this.supabase.auth.onAuthStateChange(callback)
     }
 
-    async getUsers() {
+    async getUsers(): Promise<IUser[]> {
         let users: IUser[] = [];
         try {
             const { data, error, status } = await this.supabase
