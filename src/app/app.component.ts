@@ -19,19 +19,23 @@ export class AppComponent implements OnInit {
   title = 'angular-training-application';
   
   constructor(private usersService: UsersService) {
-    this.users = this.usersService.getUsers()
+    this.loadUsers();
+  }
+  
+  async loadUsers() {
+    this.users = await this.usersService.getUsers();
   }
 
   ngOnInit() {
     this.usersService.getUsers();
   }
 
-  onSelectUser(id: string) {
+  async onSelectUser(id: string) {
     if (!id) {
       console.log(`No user selected. id = ${id}`);
       return;
     }; //TODO: Handle or gracefully ignore.
-    this.selectedUser = this.usersService.getUser(id);
+    this.selectedUser = await this.usersService.getUser(id);
     console.log(`Selected user with id ${id}`);
   }
 }

@@ -1,48 +1,58 @@
 import { inject, Injectable } from "@angular/core";
-import { IUser } from "./Users.model";
+import { IUser, User } from "./Users.model";
 import { HttpClient } from "@angular/common/http";
+import { AuthChangeEvent, AuthSession, createClient, Session, SupabaseClient } from '@supabase/supabase-js'
+import { environment } from "../../../environment";
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {
-    private httpClient = inject(HttpClient);
-    private users: IUser[] = [
-        {
-            id: 'u1',
-            name: 'Jasmine Washington',
-            avatar: 'user-1.jpg',
-        }, {
-            id: 'u2',
-            name: 'Emily Thompson',
-            avatar: 'user-2.jpg',
-        }, {
-            id: 'u3',
-            name: 'Marcus Johnson',
-            avatar: 'user-3.jpg',
-        }, {
-            id: 'u4',
-            name: 'David Miller',
-            avatar: 'user-4.jpg',
-        }, {
-            id: 'u5',
-            name: 'Priya Patel',
-            avatar: 'user-5.jpg',
-        }, {
-            id: 'u6',
-            name: 'Arjun Singh',
-            avatar: 'user-6.jpg',
-        },
-    ];
+    private supabase: SupabaseClient;
+    _session: AuthSession | null = null;
+        
+    constructor() {
+        this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey)
+    }    
 
-    getUsers(): IUser[] {
-        // TODO: Revisit the tutorial to move the subscription to the component:
-        // https://www.udemy.com/course/the-complete-guide-to-angular-2/learn/lecture/44116338#overview
-        // TODO: Implement Error handling:
-        // https://www.udemy.com/course/the-complete-guide-to-angular-2/learn/lecture/44116322#overview
-        this.httpClient.get<IUser[]>('https://api.example.com/users').subscribe(users => { this.users = users; });
-        return this.users;
+    get session() {
+        this.supabase.auth.getSession().then(({ data }) => {
+        this._session = data.session
+        })
+        return this._session
+    }
+
+    authChanges(callback: (event: AuthChangeEvent, session: Session | null) => void) {
+        return this.supabase.auth.onAuthStateChange(callback)
+    }
+
+    async getUsers() {
+        let users: IUser[] = [];
+        try {
+            const { data, error, status } = await this.supabase
+                .from('users')
+                .select(`id, name, avatar, created_at, updated_at`);
+            users = data?.map(user => new User(user)) || [];
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error('Error:', error.message);
+            }
+        }
+        return users;
     };
 
-    getUser(id: string): IUser | undefined {
-        return this.users.find(user => user.id === id);
+    async getUser(id: string): Promise<IUser | undefined> {
+        let user: IUser | undefined = undefined;
+        try {
+            const { data, error, status } = await this.supabase
+                .from('users')
+                .select(`id, name, avatar, created_at, updated_at`)
+                .eq('id', id);
+            if (!data) throw new Error('User not found');
+            user = new User(data[0]);
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error('Error:', error.message);
+            }
+        }
+        return user;
     };
 }

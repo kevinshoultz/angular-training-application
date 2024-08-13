@@ -36,6 +36,8 @@ export class TasksService {
         // }
         // TODO: Revisit the tutorial to move the subscription to the component:
         // https://www.udemy.com/course/the-complete-guide-to-angular-2/learn/lecture/44116338#overview
+        // TODO: Implement Error handling:
+        // https://www.udemy.com/course/the-complete-guide-to-angular-2/learn/lecture/44116322#overview
         this.httpClient.get<ITask[]>('https://api.example.com/tasks').subscribe(tasks => { this.tasks = tasks; });
         return this.tasks;
     }
